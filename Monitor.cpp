@@ -89,20 +89,23 @@ public:
     }
 };
 
-void producer(MonitorQueue &mq, int id) {
-    
-        mq.produce(id * 100); // Producir un nÃºmero Ãºnico
+void producer(MonitorQueue &mq, int id, int items_to_produce) {
+    for (int i = 0; i < items_to_produce; ++i) {
+        mq.produce(id * 100 + i); // Producir un nÃºmero Ãºnico
         std::this_thread::sleep_for(std::chrono::milliseconds(50)); // Simula tiempo de producciÃ³n
-    
+    }
 }
 
 void consumer(MonitorQueue &mq) {
     int item;
-    if (mq.consume(item)) {
-        
+    while (mq.consume(item)) {
+        // Procesa el elemento consumido
         std::this_thread::sleep_for(std::chrono::milliseconds(100)); // Simula tiempo de consumo
     }
-    // El consumidor termina después de consumir un solo elemento o si no hay nada que consumir.
+    // Espera despuÃ©s de que los productores han terminado
+    if (!mq.waitConsumersToFinish()) {
+        std::cout << "Consumer timed out waiting for items." << std::endl;
+    }
 }
 
 int main(int argc, char *argv[]) {
@@ -120,13 +123,13 @@ int main(int argc, char *argv[]) {
 
     // Crea hebras de productores
     std::vector<std::thread> producers;
-    for (int i = 0; i <= num_producers; ++i) {
-        producers.push_back(std::thread(producer, std::ref(mq), i));
+    for (int i = 0; i < num_producers; ++i) {
+        producers.push_back(std::thread(producer, std::ref(mq), i, 10));
     }
 
     // Crea hebras de consumidores
     std::vector<std::thread> consumers;
-    for (int i = 0; i <= num_consumers; ++i) {
+    for (int i = 0; i < num_consumers; ++i) {
         consumers.push_back(std::thread(consumer, std::ref(mq)));
     }
 
