@@ -86,8 +86,8 @@ public:
     }
 };
 
-void producer(MonitorQueue &mq, int id, int items_to_produce) {
-    for (int i = 0; i < items_to_produce; ++i) {
+void producer(MonitorQueue &mq, int id, int products) {
+    for (int i = 0; i < products; ++i) {
         mq.produce(id * 100 + i); 
         this_thread::sleep_for(chrono::milliseconds(50)); 
     }
