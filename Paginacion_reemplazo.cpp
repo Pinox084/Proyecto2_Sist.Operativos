@@ -1,18 +1,13 @@
-
 #include <fstream>
 #include <iostream>
-#include <sstream>
 #include <unordered_map>
 #include <list>
 #include <vector>
-#include <string>
 #include <queue>
 #include <algorithm>
-#include <chrono>
-#include <iostream>
-#include <thread>
+#include <string>
 
-// probablemente haya librerias que no se usaron porque a lo largo del trabajo intentamos varias cosas y olvide que era necesario y que no :P
+
 using namespace std;
 
 // En todas las implementaciones se usa un unordered map (porque este cuenta con hashing)con su key int y los valores list<int> para simular el chaining
