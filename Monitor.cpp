@@ -86,11 +86,11 @@ public:
     }
 };
 
-void producer(MonitorQueue &mq, int id, int products) {
-    for (int i = 0; i < products; ++i) {
-        mq.produce(id * 100 + i); 
+void producer(MonitorQueue &mq, int id) {
+    
+        mq.produce(id * 100); 
         this_thread::sleep_for(chrono::milliseconds(50)); 
-    }
+    
 }
 
 void consumer(MonitorQueue &mq) {
@@ -121,7 +121,7 @@ int main(int argc, char *argv[]) {
     // Crea hebras de productores
     vector<thread> producers;
     for (int i = 0; i < num_producers; ++i) {
-        producers.push_back(thread(producer, ref(mq), i, 10));
+        producers.push_back(thread(producer, ref(mq), i));
     }
 
     // Crea hebras de consumidores
