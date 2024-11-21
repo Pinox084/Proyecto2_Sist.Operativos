@@ -25,12 +25,12 @@ Ejemplo de ejecución ./test -p 10 -c 5 -s 50 -t 1
 
 Para compilar el Simulador se debe ejecutar el archivo SimuladorMemoria.cpp
 El simulador puede elegir entre los siguientes 4 algoritmos de reemplazo:
-Optimo
+OPTIMO
 FIFO
 Least Recently Used(LRU)
-Least Recently Used con ReLoj simple (LRUR)
+Least Recently Used con ReLoj simple (RELOJ)
 
-Ejemplo de Compilación: g++ SimuladorMemoria.cpp -o test
+Ejemplo de Compilación: g++ Paginacion_reemplazo.cpp -o test
 
 Para ejecutar el programa debe ya de existir un archivo llamado referencias.txt con la secuencia que se va a analizar. (Ejemplo: 1 4 5 2 2 1 3)
 Se debe especificar que algoritmo se quiere usar.
